@@ -4,6 +4,7 @@
   "description": "Chart.js plugin to add ab alternating background behind a barchart.",
   "main": "build/Plugin.Barchart.Background.js",
   "scripts": {
+    "prepublish": "npm run build && npm run test",
     "build:dev": "rollup -c -i src/plugin.js",
     "build": "npm run build:dev && uglifyjs build/Plugin.Barchart.Background.js -c -m -o build/Plugin.Barchart.Background.min.js",
     "test": "eslint src"
@@ -29,7 +30,7 @@
     "babel-core": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.1",
-		"eslint": "^3.19.0",
+    "eslint": "^3.19.0",
     "package-preamble": "0.0",
     "rollup": "^0.55.3",
     "rollup-plugin-babel": "^3.0.3",

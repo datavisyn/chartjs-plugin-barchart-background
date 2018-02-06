@@ -8,7 +8,7 @@ const plugin = {
 	beforeDraw: (chart, easingValue, options) => {
 
 		const supportedTypes = ['boxplot', 'horizontalBoxplot', 'violin', 'horizontalViolin', 'bar', 'horizontalBar'];
-		if (!supportedTypes.find(chart.config.type)) {
+		if (!supportedTypes.indexOf(chart.config.type) > 0) {
 			console.warn('The type %s is not supported by this plugin', chart.config.type);
 			return;
 		}
@@ -16,7 +16,7 @@ const plugin = {
 		const isHorizontal = chart.config.type.startsWith('horizontal') ? true : false;
 		const chartWidth = chart.chartArea.right - chart.chartArea.left;
 		const chartHeight = chart.chartArea.bottom - chart.chartArea.top;
-		const numGroups = Math.max(0, chart.data.datasets.map((d) => d.data.length));
+		const numGroups = Math.max(...chart.config.data.datasets.map((d) => d.data.length));
 
 		// push the current canvas state onto the stack
 		const ctx = chart.ctx;

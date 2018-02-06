@@ -6,13 +6,23 @@
 
 Chart = Chart && Chart.hasOwnProperty('default') ? Chart['default'] : Chart;
 
+var toConsumableArray = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  } else {
+    return Array.from(arr);
+  }
+};
+
 var plugin = {
 	id: 'chartJsPluginBarchartBackground',
 
 	beforeDraw: function beforeDraw(chart, easingValue, options) {
 
 		var supportedTypes = ['boxplot', 'horizontalBoxplot', 'violin', 'horizontalViolin', 'bar', 'horizontalBar'];
-		if (!supportedTypes.find(chart.config.type)) {
+		if (!supportedTypes.indexOf(chart.config.type) > 0) {
 			console.warn('The type %s is not supported by this plugin', chart.config.type);
 			return;
 		}
@@ -20,9 +30,9 @@ var plugin = {
 		var isHorizontal = chart.config.type.startsWith('horizontal') ? true : false;
 		var chartWidth = chart.chartArea.right - chart.chartArea.left;
 		var chartHeight = chart.chartArea.bottom - chart.chartArea.top;
-		var numGroups = Math.max(0, chart.data.datasets.map(function (d) {
+		var numGroups = Math.max.apply(Math, toConsumableArray(chart.config.data.datasets.map(function (d) {
 			return d.data.length;
-		}));
+		})));
 
 		// push the current canvas state onto the stack
 		var ctx = chart.ctx;
