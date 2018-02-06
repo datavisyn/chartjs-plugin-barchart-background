@@ -1,0 +1,40 @@
+{
+  "name": "chartjs-plugin-barchart-background",
+  "version": "1.0.0",
+  "description": "Chart.js plugin to add ab alternating background behind a barchart.",
+  "main": "build/Plugin.Barchart.Background.js",
+  "scripts": {
+    "build:dev": "rollup -c -i src/plugin.js",
+    "build": "npm run build:dev && uglifyjs build/Plugin.Barchart.Background.js -c -m -o build/Plugin.Barchart.Background.min.js",
+    "test": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datavisyn/chartjs-plugin-barchart-background.git"
+  },
+  "author": {
+    "name": "Stefan Luger",
+    "email": "stefan.lugerl@datavisyn.io",
+    "url": "http://datavisyn.io"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/datavisyn/chartjs-plugin-barchart-background/issues"
+  },
+  "homepage": "https://github.com/datavisyn/chartjs-plugin-barchart-background#readme",
+  "dependencies": {
+    "chart.js": "^2.7.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+		"eslint": "^3.19.0",
+    "package-preamble": "0.0",
+    "rollup": "^0.55.3",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^8.3.0",
+    "rollup-plugin-node-resolve": "^3.0.2",
+    "uglify-es": "^3.3.9"
+  }
+}
