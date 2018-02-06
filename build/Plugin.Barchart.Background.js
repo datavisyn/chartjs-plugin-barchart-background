@@ -22,7 +22,7 @@ var plugin = {
 	beforeDraw: function beforeDraw(chart, easingValue, options) {
 
 		var supportedTypes = ['boxplot', 'horizontalBoxplot', 'violin', 'horizontalViolin', 'bar', 'horizontalBar'];
-		if (!supportedTypes.indexOf(chart.config.type) > 0) {
+		if (!supportedTypes.indexOf(chart.config.type) > -1) {
 			console.warn('The type %s is not supported by this plugin', chart.config.type);
 			return;
 		}
