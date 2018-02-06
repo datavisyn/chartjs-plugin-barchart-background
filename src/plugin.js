@@ -3,11 +3,11 @@
 import Chart from 'chart.js';
 
 const isSupported = (type) => [
-	'boxplot', 
-	'horizontalBoxplot', 
-	'violin', 
-	'horizontalViolin', 
-	'bar', 
+	'boxplot',
+	'horizontalBoxplot',
+	'violin',
+	'horizontalViolin',
+	'bar',
 	'horizontalBar'
 ].indexOf(type) !== -1;
 
