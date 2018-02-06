@@ -16,17 +16,21 @@ var toConsumableArray = function (arr) {
   }
 };
 
+var isSupported = function isSupported(type) {
+	return ['boxplot', 'horizontalBoxplot', 'violin', 'horizontalViolin', 'bar', 'horizontalBar'].indexOf(type) !== -1;
+};
+
 var plugin = {
 	id: 'chartJsPluginBarchartBackground',
 
-	beforeDraw: function beforeDraw(chart, easingValue, options) {
-
-		var supportedTypes = ['boxplot', 'horizontalBoxplot', 'violin', 'horizontalViolin', 'bar', 'horizontalBar'];
-		if (!supportedTypes.indexOf(chart.config.type) > -1) {
+	beforeInit: function beforeInit(chart) {
+		if (!isSupported(chart.config.type)) {
 			console.warn('The type %s is not supported by this plugin', chart.config.type);
 			return;
 		}
+	},
 
+	beforeDraw: function beforeDraw(chart, easingValue, options) {
 		var isHorizontal = chart.config.type.startsWith('horizontal') ? true : false;
 		var chartWidth = chart.chartArea.right - chart.chartArea.left;
 		var chartHeight = chart.chartArea.bottom - chart.chartArea.top;

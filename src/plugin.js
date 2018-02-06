@@ -2,17 +2,26 @@
 
 import Chart from 'chart.js';
 
+const isSupported = (type) => [
+	'boxplot', 
+	'horizontalBoxplot', 
+	'violin', 
+	'horizontalViolin', 
+	'bar', 
+	'horizontalBar'
+].indexOf(type) !== -1;
+
 const plugin = {
 	id: 'chartJsPluginBarchartBackground',
 
-	beforeDraw: (chart, easingValue, options) => {
-
-		const supportedTypes = ['boxplot', 'horizontalBoxplot', 'violin', 'horizontalViolin', 'bar', 'horizontalBar'];
-		if (!supportedTypes.indexOf(chart.config.type) > -1) {
+	beforeInit: (chart) => {
+		if (!isSupported(chart.config.type)) {
 			console.warn('The type %s is not supported by this plugin', chart.config.type);
 			return;
 		}
+	},
 
+	beforeDraw: (chart, easingValue, options) => {
 		const isHorizontal = chart.config.type.startsWith('horizontal') ? true : false;
 		const chartWidth = chart.chartArea.right - chart.chartArea.left;
 		const chartHeight = chart.chartArea.bottom - chart.chartArea.top;
