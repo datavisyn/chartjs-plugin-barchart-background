@@ -1,5 +1,5 @@
 # Alternating Barchart Background Chart.js Plugin
-[![datavisyn][datavisyn-image]][datavisyn-url] [![NPM Package][npm-image]][npm-url] [![CircleCI][circleci-image]][circleci-url]
+[![datavisyn][datavisyn-image]][datavisyn-url] [![NPM Package][npm-image]][npm-url]
 
 [Chart.js](http://www.chartjs.org/) plugin for adding an alternating background to horizontal and vertical Barcharts, [Box and Violin Plots](https://github.com/datavisyn/chartjs-chart-box-and-violin-plot).
 
