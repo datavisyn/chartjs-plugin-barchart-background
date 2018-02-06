@@ -15,7 +15,7 @@ options: {
   ...
 
   plugins: {
-	  chartJsPluginBarchartBackground:
+	  chartJsPluginBarchartBackground: {
       color: '#eeeeee'
     }
   }
