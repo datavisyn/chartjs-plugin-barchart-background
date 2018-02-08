@@ -5,7 +5,7 @@
 
 ## Install
 ```bash
-npm install --save chartjs chartjs-plugin-barchart-background
+npm install --save chart.js chartjs-plugin-barchart-background
 ```
 
 ## Usage and options
