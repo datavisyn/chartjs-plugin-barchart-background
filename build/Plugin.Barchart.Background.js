@@ -20,6 +20,10 @@ var isSupported = function isSupported(type) {
 	return ['boxplot', 'horizontalBoxplot', 'violin', 'horizontalViolin', 'bar', 'horizontalBar'].indexOf(type) !== -1;
 };
 
+var defaultOptions = {
+	color: '#eee'
+};
+
 var plugin = {
 	id: 'chartJsPluginBarchartBackground',
 
@@ -31,6 +35,7 @@ var plugin = {
 	},
 
 	beforeDraw: function beforeDraw(chart, easingValue, options) {
+		Object.assign(options, defaultOptions);
 		var isHorizontal = chart.config.type.startsWith('horizontal') ? true : false;
 		var chartWidth = chart.chartArea.right - chart.chartArea.left;
 		var chartHeight = chart.chartArea.bottom - chart.chartArea.top;

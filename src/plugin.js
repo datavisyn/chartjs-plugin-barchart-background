@@ -11,6 +11,10 @@ const isSupported = (type) => [
 	'horizontalBar'
 ].indexOf(type) !== -1;
 
+const defaultOptions = {
+	color: '#eee'
+};
+
 const plugin = {
 	id: 'chartJsPluginBarchartBackground',
 
@@ -22,6 +26,7 @@ const plugin = {
 	},
 
 	beforeDraw: (chart, easingValue, options) => {
+		Object.assign(options, defaultOptions);
 		const isHorizontal = chart.config.type.startsWith('horizontal') ? true : false;
 		const chartWidth = chart.chartArea.right - chart.chartArea.left;
 		const chartHeight = chart.chartArea.bottom - chart.chartArea.top;
