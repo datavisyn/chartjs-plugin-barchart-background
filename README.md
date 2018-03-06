@@ -5,7 +5,7 @@
 
 ## Install
 ```bash
-npm install --save chartjs chartjs-plugin-barchart-background
+npm install --save chart.js chartjs-plugin-barchart-background
 ```
 
 ## Usage and options
@@ -16,13 +16,15 @@ options: {
 
   plugins: {
 	  chartJsPluginBarchartBackground: {
-      color: '#eeeeee'
+      color: '#efefef'
     }
   }
   
   ...
 }
 ```
+
+The default background color is `#f3f3f3`.
 
 ## Samples
 See the [samples](https://github.com/datavisyn/chartjs-plugin-barchart-background/tree/master/samples)

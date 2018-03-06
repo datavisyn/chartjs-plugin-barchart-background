@@ -12,7 +12,7 @@ const isSupported = (type) => [
 ].indexOf(type) !== -1;
 
 const defaultOptions = {
-	color: '#eee'
+	color: '#f3f3f3'
 };
 
 const plugin = {
@@ -26,7 +26,7 @@ const plugin = {
 	},
 
 	beforeDraw: (chart, easingValue, options) => {
-		Object.assign(options, defaultOptions);
+		const pluginOptions = Object.assign({}, defaultOptions, options);
 		const isHorizontal = chart.config.type.startsWith('horizontal') ? true : false;
 		const chartWidth = chart.chartArea.right - chart.chartArea.left;
 		const chartHeight = chart.chartArea.bottom - chart.chartArea.top;
@@ -37,7 +37,7 @@ const plugin = {
 		ctx.save();
 
 		// set background color
-		ctx.fillStyle = options.color;
+		ctx.fillStyle = pluginOptions.color;
 
 		// draw rectangles
 		let groupWidth;
