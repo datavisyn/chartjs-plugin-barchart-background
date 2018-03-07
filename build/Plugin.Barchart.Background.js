@@ -2,9 +2,69 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('chart.js')) :
 	typeof define === 'function' && define.amd ? define(['chart.js'], factory) :
 	(global.PluginBarchartBackground = factory(global.Chart));
-}(this, (function (chart_js) { 'use strict';
+}(this, (function (Chart) { 'use strict';
 
-chart_js = chart_js && chart_js.hasOwnProperty('default') ? chart_js['default'] : chart_js;
+Chart = Chart && Chart.hasOwnProperty('default') ? Chart['default'] : Chart;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var toConsumableArray = function (arr) {
   if (Array.isArray(arr)) {
@@ -78,6 +138,10 @@ var plugin = {
 		}
 	}
 };
+
+if (!(typeof define === 'function' && define.amd) && !((typeof module === 'undefined' ? 'undefined' : _typeof(module)) === 'object' && module.exports)) {
+	Chart.pluginService.register(plugin);
+}
 
 return plugin;
 

@@ -17,7 +17,7 @@ const defaultOptions = {
 
 const hasData = (data) => {
 	return data && data.datasets && data.datasets.length > 0;
-}
+};
 
 const plugin = {
 	id: 'chartJsPluginBarchartBackground',
@@ -68,4 +68,8 @@ const plugin = {
 	}
 };
 
+// if the environment is neither amd nor commonjs, register the plugin globally for the samples and tests
 export default plugin;
+if (!(typeof define === 'function' && define.amd) && !(typeof module === 'object' && module.exports)) {
+	Chart.pluginService.register(plugin);
+}
