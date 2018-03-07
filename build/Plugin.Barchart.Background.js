@@ -2,9 +2,9 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('chart.js')) :
 	typeof define === 'function' && define.amd ? define(['chart.js'], factory) :
 	(global.PluginBarchartBackground = factory(global.Chart));
-}(this, (function (Chart) { 'use strict';
+}(this, (function (chart_js) { 'use strict';
 
-Chart = Chart && Chart.hasOwnProperty('default') ? Chart['default'] : Chart;
+chart_js = chart_js && chart_js.hasOwnProperty('default') ? chart_js['default'] : chart_js;
 
 var toConsumableArray = function (arr) {
   if (Array.isArray(arr)) {
@@ -24,6 +24,10 @@ var defaultOptions = {
 	color: '#f3f3f3'
 };
 
+var hasData = function hasData(data) {
+	return data && data.datasets && data.datasets.length > 0;
+};
+
 var plugin = {
 	id: 'chartJsPluginBarchartBackground',
 
@@ -35,45 +39,45 @@ var plugin = {
 	},
 
 	beforeDraw: function beforeDraw(chart, easingValue, options) {
-		var pluginOptions = Object.assign({}, defaultOptions, options);
-		var isHorizontal = chart.config.type.startsWith('horizontal') ? true : false;
-		var chartWidth = chart.chartArea.right - chart.chartArea.left;
-		var chartHeight = chart.chartArea.bottom - chart.chartArea.top;
-		var numGroups = Math.max.apply(Math, toConsumableArray(chart.config.data.datasets.map(function (d) {
-			return d.data.length;
-		})));
+		if (hasData(chart.config.data)) {
+			var pluginOptions = Object.assign({}, defaultOptions, options);
+			var isHorizontal = chart.config.type.startsWith('horizontal') ? true : false;
+			var chartWidth = chart.chartArea.right - chart.chartArea.left;
+			var chartHeight = chart.chartArea.bottom - chart.chartArea.top;
+			var numGroups = Math.max.apply(Math, toConsumableArray(chart.config.data.datasets.map(function (d) {
+				return d.data.length;
+			})));
 
-		// push the current canvas state onto the stack
-		var ctx = chart.ctx;
-		ctx.save();
+			// push the current canvas state onto the stack
+			var ctx = chart.ctx;
+			ctx.save();
 
-		// set background color
-		ctx.fillStyle = pluginOptions.color;
+			// set background color
+			ctx.fillStyle = pluginOptions.color;
 
-		// draw rectangles
-		var groupWidth = void 0;
-		if (isHorizontal) {
-			groupWidth = chartHeight / numGroups;
-			var i = chart.chartArea.top;
-			while (i < chart.chartArea.bottom) {
-				ctx.fillRect(chart.chartArea.left, i, chartWidth, groupWidth);
-				i += groupWidth * 2;
+			// draw rectangles
+			var groupWidth = void 0;
+			if (isHorizontal) {
+				groupWidth = chartHeight / numGroups;
+				var i = chart.chartArea.top;
+				while (i < chart.chartArea.bottom) {
+					ctx.fillRect(chart.chartArea.left, i, chartWidth, groupWidth);
+					i += groupWidth * 2;
+				}
+			} else {
+				groupWidth = chartWidth / numGroups;
+				var _i = chart.chartArea.left;
+				while (_i < chart.chartArea.right) {
+					ctx.fillRect(_i, chart.chartArea.top, groupWidth, chartHeight);
+					_i += groupWidth * 2;
+				}
 			}
-		} else {
-			groupWidth = chartWidth / numGroups;
-			var _i = chart.chartArea.left;
-			while (_i < chart.chartArea.right) {
-				ctx.fillRect(_i, chart.chartArea.top, groupWidth, chartHeight);
-				_i += groupWidth * 2;
-			}
+
+			// restore the saved state
+			ctx.restore();
 		}
-
-		// restore the saved state
-		ctx.restore();
 	}
 };
-
-Chart.pluginService.register(plugin);
 
 return plugin;
 
