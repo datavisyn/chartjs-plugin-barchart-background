@@ -94,48 +94,48 @@ var plugin = {
 	beforeInit: function beforeInit(chart) {
 		if (!isSupported(chart.config.type)) {
 			console.warn('The type %s is not supported by this plugin', chart.config.type);
-			return;
 		}
 	},
 
 	beforeDraw: function beforeDraw(chart, easingValue, options) {
-		if (hasData(chart.config.data)) {
-			var pluginOptions = Object.assign({}, defaultOptions, options);
-			var isHorizontal = chart.config.type.startsWith('horizontal') ? true : false;
-			var chartWidth = chart.chartArea.right - chart.chartArea.left;
-			var chartHeight = chart.chartArea.bottom - chart.chartArea.top;
-			var numGroups = Math.max.apply(Math, toConsumableArray(chart.config.data.datasets.map(function (d) {
-				return d.data.length;
-			})));
-
-			// push the current canvas state onto the stack
-			var ctx = chart.ctx;
-			ctx.save();
-
-			// set background color
-			ctx.fillStyle = pluginOptions.color;
-
-			// draw rectangles
-			var groupWidth = void 0;
-			if (isHorizontal) {
-				groupWidth = chartHeight / numGroups;
-				var i = chart.chartArea.top;
-				while (i < chart.chartArea.bottom) {
-					ctx.fillRect(chart.chartArea.left, i, chartWidth, groupWidth);
-					i += groupWidth * 2;
-				}
-			} else {
-				groupWidth = chartWidth / numGroups;
-				var _i = chart.chartArea.left;
-				while (_i < chart.chartArea.right) {
-					ctx.fillRect(_i, chart.chartArea.top, groupWidth, chartHeight);
-					_i += groupWidth * 2;
-				}
-			}
-
-			// restore the saved state
-			ctx.restore();
+		if (!hasData(chart.config.data) || !isSupported(chart.config.type)) {
+			return;
 		}
+		var pluginOptions = Object.assign({}, defaultOptions, options);
+		var isHorizontal = chart.config.type.startsWith('horizontal');
+		var chartWidth = chart.chartArea.right - chart.chartArea.left;
+		var chartHeight = chart.chartArea.bottom - chart.chartArea.top;
+		var numGroups = Math.max.apply(Math, toConsumableArray(chart.config.data.datasets.map(function (d) {
+			return d.data.length;
+		})));
+
+		// push the current canvas state onto the stack
+		var ctx = chart.ctx;
+		ctx.save();
+
+		// set background color
+		ctx.fillStyle = pluginOptions.color;
+
+		// draw rectangles
+		var groupWidth = void 0;
+		if (isHorizontal) {
+			groupWidth = chartHeight / numGroups;
+			var acc = chart.chartArea.top;
+			for (var i = 0; i < numGroups; ++i) {
+				ctx.fillRect(chart.chartArea.left, acc, chartWidth, groupWidth);
+				acc += groupWidth * 2;
+			}
+		} else {
+			groupWidth = chartWidth / numGroups;
+			var _acc = chart.chartArea.left;
+			for (var _i = 0; _i < numGroups; ++_i) {
+				ctx.fillRect(_acc, chart.chartArea.top, groupWidth, chartHeight);
+				_acc += groupWidth * 2;
+			}
+		}
+
+		// restore the saved state
+		ctx.restore();
 	}
 };
 

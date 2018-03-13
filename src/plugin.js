@@ -50,14 +50,14 @@ const plugin = {
 		if (isHorizontal) {
 			groupWidth = chartHeight / numGroups;
 			let acc = chart.chartArea.top;
-			for(let i = 0; i < numGroups; ++i) {
+			for (let i = 0; i < numGroups; ++i) {
 				ctx.fillRect(chart.chartArea.left, acc, chartWidth, groupWidth);
 				acc += groupWidth * 2;
 			}
 		} else {
 			groupWidth = chartWidth / numGroups;
 			let acc = chart.chartArea.left;
-			for(let i = 0; i < numGroups; ++i) {
+			for (let i = 0; i < numGroups; ++i) {
 				ctx.fillRect(acc, chart.chartArea.top, groupWidth, chartHeight);
 				acc += groupWidth * 2;
 			}
