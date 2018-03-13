@@ -1,6 +1,6 @@
 {
   "name": "chartjs-plugin-barchart-background",
-  "version": "1.1.7",
+  "version": "1.2.0",
   "description": "Chart.js plugin to add an alternating background behind a barchart.",
   "main": "build/Plugin.Barchart.Background.js",
   "scripts": {
