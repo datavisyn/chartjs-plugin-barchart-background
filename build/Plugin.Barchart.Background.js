@@ -121,14 +121,14 @@ var plugin = {
 		if (isHorizontal) {
 			groupWidth = chartHeight / numGroups;
 			var acc = chart.chartArea.top;
-			for (var i = 0; i < numGroups; ++i) {
+			for (var i = 0; i < numGroups; i += 2) {
 				ctx.fillRect(chart.chartArea.left, acc, chartWidth, groupWidth);
 				acc += groupWidth * 2;
 			}
 		} else {
 			groupWidth = chartWidth / numGroups;
 			var _acc = chart.chartArea.left;
-			for (var _i = 0; _i < numGroups; ++_i) {
+			for (var _i = 0; _i < numGroups; _i += 2) {
 				ctx.fillRect(_acc, chart.chartArea.top, groupWidth, chartHeight);
 				_acc += groupWidth * 2;
 			}
