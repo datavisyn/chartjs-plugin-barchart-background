@@ -67,7 +67,7 @@ const plugin = {
     const tickPositions = ticks.map((_, index) => getLineValue(scale, index, gridLines.offsetGridLines && ticks.length > 1));
 
     const shift = options.mode === 'odd' ? 0 : 1;
-    if (tickPositions.length % 2 === (1-shift)) {
+    if (tickPositions.length % 2 === (1 - shift)) {
       // add the right border as artifical one
       tickPositions.push(isHorizontal ? chartArea.right : chartArea.bottom);
     }
