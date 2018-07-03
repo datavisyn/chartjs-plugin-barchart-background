@@ -2,64 +2,87 @@
 
 import Chart from 'chart.js';
 
-const isSupported = (type) => [
-	'boxplot',
-	'horizontalBoxplot',
-	'violin',
-	'horizontalViolin',
-	'bar',
-	'horizontalBar'
-].indexOf(type) !== -1;
-
 const defaultOptions = {
-	color: '#f3f3f3'
+	color: '#f3f3f3',
+	axis: 'category'
 };
 
-const hasData = (data) => {
-	return data && data.datasets && data.datasets.length > 0;
-};
+
+function getLineValue(scale, index, offsetGridLines) {
+	// see core.scale.js -> getLineValue
+	var lineValue = scale.getPixelForTick(index);
+
+	if (offsetGridLines) {
+		if (index === 0) {
+			lineValue -= (scale.getPixelForTick(1) - lineValue) / 2;
+		} else {
+			lineValue -= (lineValue - scale.getPixelForTick(index - 1)) / 2;
+		}
+	}
+	return lineValue;
+}
 
 const plugin = {
 	id: 'chartJsPluginBarchartBackground',
 
-	beforeInit: (chart) => {
-		if (!isSupported(chart.config.type)) {
-			console.warn('The type %s is not supported by this plugin', chart.config.type);
-		}
+	_hasData(data) {
+		return data && data.datasets && data.datasets.length > 0;
 	},
 
-	beforeDraw: (chart, easingValue, options) => {
-		if (!hasData(chart.config.data) || !isSupported(chart.config.type)) {
+  _findScale(chart, options) {
+		const scales = Object.keys(chart.scales).map((d) => chart.scales[d]);
+		if (options.axis === 'category') {
+			return scales.find((d) => d.type === 'hierarchical' || d.type === 'category');
+		}
+		return scales.find((d) => d.id.startsWith(option.axis));
+	},
+
+	beforeDraw(chart, _easingValue, options) {
+		options = Object.assign({}, defaultOptions, options);
+
+		const scale = this._findScale(chart, options);
+		if (!this._hasData(chart.config.data) || !scale) {
 			return;
 		}
-		const pluginOptions = Object.assign({}, defaultOptions, options);
-		const isHorizontal = chart.config.type.startsWith('horizontal');
-		const chartWidth = chart.chartArea.right - chart.chartArea.left;
-		const chartHeight = chart.chartArea.bottom - chart.chartArea.top;
-		const numGroups = Math.max(...chart.config.data.datasets.map((d) => d.data.length));
+		const ticks = scale.getTicks();
+		if (!ticks || ticks.length === 0) {
+			return;
+		}
+
+		const isHorizontal = scale.isHorizontal();
+		const chartArea = chart.chartArea;
+
+		const soptions = scale.options;
+		const gridLines = soptions.gridLines;
 
 		// push the current canvas state onto the stack
 		const ctx = chart.ctx;
 		ctx.save();
 
 		// set background color
-		ctx.fillStyle = pluginOptions.color;
+		ctx.fillStyle = options.color;
 
-		// draw rectangles
-		let groupWidth;
+		// based on core.scale.js
+		const tickPositions = ticks.map((_, index) => getLineValue(scale, index, gridLines.offsetGridLines && ticks.length > 1));
+
+		if (tickPositions.length % 2 === 1) {
+			// add the right border as artifical one
+			tickPositions.push(isHorizontal ? chartArea.right : chartArea.bottom);
+		}
+
 		if (isHorizontal) {
-			groupWidth = chartHeight / numGroups;
-			let acc = chart.chartArea.top;
-			for (let i = 0; i < numGroups; i += 2) {
-				ctx.fillRect(chart.chartArea.left, acc, chartWidth, groupWidth);
-				acc += groupWidth * 2;
+			const chartHeight = chartArea.bottom - chartArea.top;
+			for (let i = 0; i < tickPositions.length; i += 2) {
+				const x = tickPositions[i];
+				const x2 = tickPositions[i + 1];
+				ctx.fillRect(x, chartArea.top, x2 - x, chartHeight);
 			}
 		} else {
-			groupWidth = chartWidth / numGroups;
-			let acc = chart.chartArea.left;
-			for (let i = 0; i < numGroups; i += 2) {
-				ctx.fillRect(acc, chart.chartArea.top, groupWidth, chartHeight);
-				acc += groupWidth * 2;
+			const chartWidth = chartArea.right - chartArea.left;
+			for (let i = 0; i < tickPositions.length; i += 2) {
+				const y = tickPositions[i];
+				const y2 = tickPositions[i + 1];
+				ctx.fillRect(chartArea.left, y, chartWidth, y2 - y);
 			}
 		}
 

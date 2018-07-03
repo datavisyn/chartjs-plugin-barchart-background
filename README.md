@@ -1,7 +1,7 @@
 # Alternating Barchart Background Chart.js Plugin
 [![datavisyn][datavisyn-image]][datavisyn-url] [![NPM Package][npm-image]][npm-url] [![CircleCI][circleci-image]][circleci-url]
 
-[Chart.js](http://www.chartjs.org/) plugin for adding an alternating background to horizontal and vertical Barcharts, [Box and Violin Plots](https://github.com/datavisyn/chartjs-chart-box-and-violin-plot).
+[Chart.js](http://www.chartjs.org/) plugin for adding an alternating background to chart axes, such as horizontal and vertical Barcharts, or [Box and Violin Plots](https://github.com/datavisyn/chartjs-chart-box-and-violin-plot).
 
 ## Install
 ```bash
@@ -10,21 +10,42 @@ npm install --save chart.js chartjs-plugin-barchart-background
 
 ## Usage and options
 
+```typescript
+interface IChartJsPluginBarchartBackgroundOptions {
+	/**
+	 * fill color
+	 * @default #f3f3f3
+	 */
+	color: string;
+	/**
+	 * render mode
+	 * options:
+	 *  * odd = first, third, ...
+	 *  * even = second, fourth, ...
+	 * @default 'odd'
+	 */
+	mode: 'odd'|'even';
+	/**
+	 * axis to render the alternating background for
+	 * @default: 'category'
+	 */
+	axis: 'category'|'x'|'y';
+}
+
 ```javascript
 options: {
   ...
 
   plugins: {
 	  chartJsPluginBarchartBackground: {
-      color: '#efefef'
+			color: '#efefef',
+			mode: 'odd'
     }
   }
 
   ...
 }
 ```
-
-The default background color is `#f3f3f3`.
 
 ## Samples
 See the [samples](https://github.com/datavisyn/chartjs-plugin-barchart-background/tree/master/samples)
@@ -34,9 +55,6 @@ See the [samples](https://github.com/datavisyn/chartjs-plugin-barchart-backgroun
 
 
 ![Horizontal](https://user-images.githubusercontent.com/5220584/35855562-eb4d7588-0b33-11e8-9386-d02ce56af1c7.PNG)
-
-## Supported chart types
-`boxplot`, `horizontalBoxplot`, `violin`, `horizontalViolin`, `bar`, `horizontalBar`
 
 ## Building
 
