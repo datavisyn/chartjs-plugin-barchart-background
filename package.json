@@ -8,6 +8,13 @@
     "email": "stefan.lugerl@datavisyn.io",
     "url": "http://datavisyn.io"
   },
+  "contributors": [
+    {
+      "name": "Samuel Gratzl",
+      "email": "samuel.gratzl@datavisyn.io",
+      "url": "http://datavisyn.io"
+    }
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
