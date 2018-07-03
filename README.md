@@ -12,24 +12,24 @@ npm install --save chart.js chartjs-plugin-barchart-background
 
 ```typescript
 interface IChartJsPluginBarchartBackgroundOptions {
-	/**
-	 * fill color
-	 * @default #f3f3f3
-	 */
-	color: string;
-	/**
-	 * render mode
-	 * options:
-	 *  * odd = first, third, ...
-	 *  * even = second, fourth, ...
-	 * @default 'odd'
-	 */
-	mode: 'odd'|'even';
-	/**
-	 * axis to render the alternating background for
-	 * @default: 'category'
-	 */
-	axis: 'category'|'x'|'y';
+  /**
+   * fill color
+   * @default #f3f3f3
+   */
+  color: string;
+  /**
+   * render mode
+   * options:
+   *  * odd = first, third, ...
+   *  * even = second, fourth, ...
+   * @default 'odd'
+   */
+  mode: 'odd'|'even';
+  /**
+   * axis to render the alternating background for
+   * @default: 'category'
+   */
+  axis: 'category'|'x'|'y';
 }
 
 ```javascript
@@ -37,9 +37,9 @@ options: {
   ...
 
   plugins: {
-	  chartJsPluginBarchartBackground: {
-			color: '#efefef',
-			mode: 'odd'
+    chartJsPluginBarchartBackground: {
+      color: '#efefef',
+      mode: 'odd'
     }
   }
 

@@ -13,9 +13,9 @@ export default {
         },
         name: 'PluginBarchartBackground'
     },
-	plugins: [
-		resolve(),
-		commonjs(),
-		babel()
-	]
+  plugins: [
+    resolve(),
+    commonjs(),
+    babel()
+  ]
 };
