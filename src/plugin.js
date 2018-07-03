@@ -4,7 +4,8 @@ import Chart from 'chart.js';
 
 const defaultOptions = {
 	color: '#f3f3f3',
-	axis: 'category'
+	axis: 'category',
+	mode: 'odd'
 };
 
 
@@ -65,21 +66,22 @@ const plugin = {
 		// based on core.scale.js
 		const tickPositions = ticks.map((_, index) => getLineValue(scale, index, gridLines.offsetGridLines && ticks.length > 1));
 
-		if (tickPositions.length % 2 === 1) {
+		const shift = options.mode === 'odd' ? 0 : 1;
+		if (tickPositions.length % 2 === (1-shift)) {
 			// add the right border as artifical one
 			tickPositions.push(isHorizontal ? chartArea.right : chartArea.bottom);
 		}
 
 		if (isHorizontal) {
 			const chartHeight = chartArea.bottom - chartArea.top;
-			for (let i = 0; i < tickPositions.length; i += 2) {
+			for (let i = shift; i < tickPositions.length; i += 2) {
 				const x = tickPositions[i];
 				const x2 = tickPositions[i + 1];
 				ctx.fillRect(x, chartArea.top, x2 - x, chartHeight);
 			}
 		} else {
 			const chartWidth = chartArea.right - chartArea.left;
-			for (let i = 0; i < tickPositions.length; i += 2) {
+			for (let i = shift; i < tickPositions.length; i += 2) {
 				const y = tickPositions[i];
 				const y2 = tickPositions[i + 1];
 				ctx.fillRect(chartArea.left, y, chartWidth, y2 - y);
