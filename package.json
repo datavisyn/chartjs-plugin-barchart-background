@@ -2,7 +2,7 @@
   "name": "chartjs-plugin-barchart-background",
   "description": "Chart.js plugin to add an alternating background behind a barchart.",
   "homepage": "https://github.com/datavisyn/chartjs-plugin-barchart-background#readme",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "author": {
     "name": "Stefan Luger",
     "email": "stefan.lugerl@datavisyn.io",
