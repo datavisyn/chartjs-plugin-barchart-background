@@ -34,7 +34,7 @@ const plugin = {
 		if (options.axis === 'category') {
 			return scales.find((d) => d.type === 'hierarchical' || d.type === 'category');
 		}
-		return scales.find((d) => d.id.startsWith(option.axis));
+		return scales.find((d) => d.id.startsWith(options.axis));
 	},
 
 	beforeDraw(chart, _easingValue, options) {
