@@ -31,6 +31,7 @@ interface IChartJsPluginBarchartBackgroundOptions {
    */
   axis: 'category'|'x'|'y';
 }
+```
 
 ```javascript
 options: {
