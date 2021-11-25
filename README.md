@@ -1,4 +1,4 @@
-# Alternating Barchart Background Chart.js Plugin - DEPRECATED
+# DEPRECATED: Alternating Barchart Background Chart.js Plugin
 [![Target Discovery Platform][tdp-image]][tdp-url] [![NPM Package][npm-image]][npm-url] [![CircleCI][circleci-image]][circleci-url]
 
 [Chart.js](http://www.chartjs.org/) plugin for adding an alternating background to chart axes, such as horizontal and vertical Barcharts, or [Box and Violin Plots](https://github.com/datavisyn/chartjs-chart-box-and-violin-plot).
